@@ -1,0 +1,170 @@
+excluded:
+  - ${PWD}/Carthage
+  - ${PWD}/Pods
+  - ${PWD}/DerivedData
+
+disabled_rules:
+  - discarded_notification_center_observer
+  - notification_center_detachment
+  - orphaned_doc_comment
+  - todo
+  - unused_capture_list
+  - trailing_whitespace
+  - force_unwrapping
+  - implicit_return
+
+opt_in_rules:
+  - vertical_parameter_alignment_on_call
+  - private_outlet
+  - private_action
+  - explicit_init
+  - single_test_class
+  - sorted_imports
+  - switch_case_on_newline
+  - object_literal
+  - unused_optional_binding
+  - array_init
+  - attributes
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - colon # promote to error
+  - convenience_type
+  - discouraged_object_literal
+  - empty_collection_literal
+  - empty_count
+  - empty_string
+  - enum_case_associated_values_count
+  - fatal_error_message
+  - first_where
+  - force_unwrapping
+  - last_where
+  - legacy_random
+  - literal_expression_end_indentation
+  - multiline_arguments
+  - multiline_function_chains
+  - multiline_literal_brackets
+  - multiline_parameters
+  - multiline_parameters_brackets
+  - operator_usage_whitespace
+  - overridden_super_call
+  - pattern_matching_keywords
+  - prefer_self_type_over_type_of_self
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - strict_fileprivate
+  - toggle_bool
+  - trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - yoda_condition
+
+
+custom_rules:
+  array_constructor:
+    name: "Array/Dictionary initializer"
+    regex: '[let,var] .+ = (\[.+\]\(\))'
+    capture_group: 1
+    message: "Use explicit type annotation when initializing empty arrays and dictionaries"
+    severity: warning
+
+
+attributes:
+  always_on_same_line:
+    - "@IBSegueAction"
+    - "@IBAction"
+    - "@NSManaged"
+    - "@objc"
+
+force_cast: warning
+
+force_try: warning
+
+large_tuple:
+  warning: 5
+  error: 5
+
+cyclomatic_complexity:
+  warning: 10
+  error: 40
+
+type_name:
+  max_length:
+    warning: 60
+    error: 100
+
+function_body_length:
+  warning: 40
+  error: 120
+
+function_parameter_count:
+  error: 10
+  
+legacy_hashing: error
+
+file_length:
+  warning: 1000
+  error: 1200
+
+type_body_length:
+  warning: 600
+  error: 800
+
+identifier_name:
+  excluded:
+    - i
+    - id
+    - x
+    - y
+    - z
+
+line_length:
+  error: 120
+  ignores_urls: true
+  ignores_function_declarations: true
+  ignores_comments: true
+
+multiline_arguments:
+  first_argument_location: next_line
+  only_enforce_after_first_closure_on_first_line: true
+  
+private_over_fileprivate:
+  validate_extensions: true
+
+vertical_whitespace:
+  max_empty_lines: 2
+
+analyzer_rules:
+  - unused_import
+
+control_statement:
+  error
+
+implicit_getter:
+  error
+
+vertical_parameter_alignment:
+  error
+
+return_arrow_whitespace:
+  error
+
+unneeded_break_in_switch:
+  error
+
+syntactic_sugar:
+  error
+
+redundant_optional_initialization:
+  error
+
+custom_rules:
+  mark_without_minus_sign:
+    regex: "(\\/\\/ )+([MARK])\\w+\\:+\\ +(?!-)"
+  service_layer_injection:
+    name: "Service layer DI"
+    regex: "(ServiceLayer\\.shared\\.\\w+\\.)|(ServiceLayer\\.shared\\s+)"
+    match_kinds:
+      - identifier
+    message: "Pass the services as dependencies via init"
