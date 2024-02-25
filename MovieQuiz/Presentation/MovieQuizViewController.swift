@@ -74,14 +74,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
 
     private func showNetworkError(message: String) {
-        setLoadingIndicator(show: false)
-
         let viewModel = AlertViewModel(
             title: "Ошибка",
-            message: "Не удалось получить данные:\nmessage",
+            message: "Не удалось получить данные:\n\(message)",
             buttonText: "Повторить"
         ) { [weak self] in
-            self?.prepareForNewRound()
+            self?.setLoadingIndicator(show: true)
+            self?.questionFactory.loadData()
         }
         alertPresenter.show(viewModel)
     }
