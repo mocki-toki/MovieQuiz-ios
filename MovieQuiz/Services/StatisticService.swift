@@ -8,32 +8,23 @@
 import Foundation
 
 protocol StatisticService {
-    func store(correct count: Int, total amount: Int)
     var totalAccuracy: Double { get }
     var gamesCount: Int { get }
     var bestGame: GameRecord { get }
+
+    func store(correct count: Int, total amount: Int)
 }
 
 class StatisticServiceImpl: StatisticService {
+    // MARK: - Constants
+
     private let userDefaults = UserDefaults.standard
     private enum Keys: String {
         case total, bestGame, gamesCount
     }
 
-    /// Сохранение результата
-    func store(correct count: Int, total amount: Int) {
-        gamesCount += 1
+    // MARK: - Public Properties
 
-        let accuracy = Double(count) / Double(amount) * 100
-        totalAccuracy = (totalAccuracy * Double(gamesCount) + accuracy) / Double(gamesCount + 1)
-
-        let record = GameRecord(correct: count, total: amount, date: Date())
-        if record.isBetterThan(bestGame) {
-            bestGame = record
-        }
-    }
-
-    /// Общая аккуратность
     var totalAccuracy: Double {
         get {
             userDefaults.double(forKey: Keys.total.rawValue)
@@ -44,7 +35,6 @@ class StatisticServiceImpl: StatisticService {
         }
     }
 
-    /// Количество игр
     var gamesCount: Int {
         get {
             userDefaults.integer(forKey: Keys.gamesCount.rawValue)
@@ -55,7 +45,6 @@ class StatisticServiceImpl: StatisticService {
         }
     }
 
-    /// Лучший результат
     var bestGame: GameRecord {
         get {
             guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
@@ -72,6 +61,20 @@ class StatisticServiceImpl: StatisticService {
                 return
             }
             userDefaults.set(data, forKey: Keys.bestGame.rawValue)
+        }
+    }
+
+    // MARK: - Public Methods
+
+    func store(correct count: Int, total amount: Int) {
+        gamesCount += 1
+
+        let accuracy = Double(count) / Double(amount) * 100
+        totalAccuracy = (totalAccuracy * Double(gamesCount) + accuracy) / Double(gamesCount + 1)
+
+        let record = GameRecord(correct: count, total: amount, date: Date())
+        if record.isBetterThan(bestGame) {
+            bestGame = record
         }
     }
 }

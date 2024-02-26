@@ -8,35 +8,36 @@
 import UIKit
 
 protocol AlertPresenterProtocol {
-    func show(_ viewModel: AlertViewModel)
+    func show(title: String, message: String, buttonText: String, completion: @escaping () -> Void)
 }
 
 class AlertPresenter: AlertPresenterProtocol {
     // MARK: - Public Properties
 
-    private weak var delegate: UIViewController?
+    private weak var viewController: UIViewController?
 
     // MARK: - Initializers
 
-    init(delegate: UIViewController?) {
-        self.delegate = delegate
+    init(viewController: UIViewController?) {
+        self.viewController = viewController
     }
 
     // MARK: - Public Methods
 
-    func show(_ viewModel: AlertViewModel) {
+    func show(title: String, message: String, buttonText: String, completion: @escaping () -> Void) {
         let alert = UIAlertController(
-            title: viewModel.title,
-            message: viewModel.message,
+            title: title,
+            message: message,
             preferredStyle: .alert
         )
+        alert.view.accessibilityIdentifier = "Alert"
 
         alert.addAction(
-            UIAlertAction(title: viewModel.buttonText, style: .default) { _ in
-                viewModel.completion()
+            UIAlertAction(title: buttonText, style: .default) { _ in
+                completion()
             }
         )
 
-        delegate?.present(alert, animated: true, completion: nil)
+        viewController?.present(alert, animated: true, completion: nil)
     }
 }
