@@ -37,14 +37,14 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
 
     // MARK: - Private Properties
 
-    private var presenter: MovieQuizPresenter
-    private var alertPresenter: AlertPresenterProtocol
+    private var presenter: MovieQuizPresenter?
+    private var alertPresenter: AlertPresenterProtocol?
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-s
+
         alertPresenter = AlertPresenter(viewController: self)
         presenter = MovieQuizPresenter(viewController: self)
     }
@@ -58,23 +58,23 @@ s
     }
 
     func show(_ viewModel: QuizResultsViewModel) {
-        let message = presenter.makeResultsMessage()
-        alertPresenter.show(
+        guard let message = presenter?.makeResultsMessage() else { return }
+        alertPresenter?.show(
             title: viewModel.title,
             message: message,
             buttonText: viewModel.buttonText
         ) { [weak self] in
-            self?.presenter.resetGame()
+            self?.presenter?.resetGame()
         }
     }
 
     func show(_ viewModel: QuizErrorViewModel) {
-        alertPresenter.show(
+        alertPresenter?.show(
             title: viewModel.title,
             message: viewModel.text,
             buttonText: viewModel.buttonText
         ) { [weak self] in
-            self?.presenter.reloadData()
+            self?.presenter?.reloadData()
         }
     }
 
@@ -97,10 +97,10 @@ s
     // MARK: - Actions
 
     @IBAction private func noButtonClicked(_ sender: Any) {
-        presenter.noButtonClicked()
+        presenter?.noButtonClicked()
     }
 
     @IBAction private func yesButtonClicked(_ sender: Any) {
-        presenter.yesButtonClicked()
+        presenter?.yesButtonClicked()
     }
 }
