@@ -5,27 +5,35 @@
 //  Created by Simon Butenko on 15.02.2024.
 //
 
-import Foundation
 import UIKit
 
 protocol AlertPresenterProtocol {
-    var delegate: UIViewController? { get set }
-    func show(model: AlertModel)
+    func show(_ viewModel: AlertViewModel)
 }
 
 class AlertPresenter: AlertPresenterProtocol {
-    weak var delegate: UIViewController?
+    // MARK: - Public Properties
 
-    func show(model: AlertModel) {
+    private weak var delegate: UIViewController?
+
+    // MARK: - Initializers
+
+    init(delegate: UIViewController?) {
+        self.delegate = delegate
+    }
+
+    // MARK: - Public Methods
+
+    func show(_ viewModel: AlertViewModel) {
         let alert = UIAlertController(
-            title: model.title,
-            message: model.message,
+            title: viewModel.title,
+            message: viewModel.message,
             preferredStyle: .alert
         )
 
         alert.addAction(
-            UIAlertAction(title: model.buttonText, style: .default) { _ in
-                model.completion()
+            UIAlertAction(title: viewModel.buttonText, style: .default) { _ in
+                viewModel.completion()
             }
         )
 
