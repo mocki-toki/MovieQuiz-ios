@@ -37,14 +37,14 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
 
     // MARK: - Private Properties
 
-    private var presenter: MovieQuizPresenter!
-    private var alertPresenter: AlertPresenterProtocol!
+    private var presenter: MovieQuizPresenter
+    private var alertPresenter: AlertPresenterProtocol
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+s
         alertPresenter = AlertPresenter(viewController: self)
         presenter = MovieQuizPresenter(viewController: self)
     }

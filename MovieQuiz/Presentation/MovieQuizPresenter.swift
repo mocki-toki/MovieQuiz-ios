@@ -11,7 +11,7 @@ final class MovieQuizPresenter {
     // MARK: - Constants
 
     private let questionsAmount = 10
-    private let statisticService: StatisticService!
+    private let statisticService: StatisticService
 
     // MARK: - Public Properties
 
@@ -22,7 +22,7 @@ final class MovieQuizPresenter {
     // MARK: - Private Properties
 
     private weak var viewController: MovieQuizViewControllerProtocol?
-    private var questionFactory: QuestionFactoryProtocol!
+    private var questionFactory: QuestionFactoryProtocol?
 
     private var currentQuestion: QuizQuestion?
     private var currentQuestionIndex = 0
@@ -78,14 +78,14 @@ final class MovieQuizPresenter {
     }
 
     func reloadData() {
-        questionFactory.loadData()
+        questionFactory?.loadData()
         viewController?.setLoadingIndicator(show: true)
     }
 
     func resetGame() {
         currentQuestionIndex = 0
         correctAnswersCounter = 0
-        questionFactory.requestNextQuestion()
+        questionFactory?.requestNextQuestion()
     }
 
     // MARK: - Private Methods
@@ -104,7 +104,7 @@ final class MovieQuizPresenter {
             )
         } else {
             currentQuestionIndex += 1
-            questionFactory.requestNextQuestion()
+            questionFactory?.requestNextQuestion()
         }
     }
 
@@ -138,7 +138,7 @@ extension MovieQuizPresenter: QuestionFactoryDelegate {
     }
 
     func didLoadData() {
-        questionFactory.requestNextQuestion()
+        questionFactory?.requestNextQuestion()
     }
 
     func didFailToLoadData(with error: Error) {
