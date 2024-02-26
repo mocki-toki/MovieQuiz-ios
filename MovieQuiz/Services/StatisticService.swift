@@ -15,7 +15,7 @@ protocol StatisticService {
     func store(correct count: Int, total amount: Int)
 }
 
-class StatisticServiceImpl: StatisticService {
+final class StatisticServiceImpl: StatisticService {
     // MARK: - Constants
 
     private let userDefaults = UserDefaults.standard

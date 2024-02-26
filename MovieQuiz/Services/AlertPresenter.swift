@@ -11,7 +11,7 @@ protocol AlertPresenterProtocol {
     func show(title: String, message: String, buttonText: String, completion: @escaping () -> Void)
 }
 
-class AlertPresenter: AlertPresenterProtocol {
+final class AlertPresenter: AlertPresenterProtocol {
     // MARK: - Public Properties
 
     private weak var viewController: UIViewController?

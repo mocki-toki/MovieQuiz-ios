@@ -12,7 +12,7 @@ protocol QuestionFactoryProtocol {
     func requestNextQuestion()
 }
 
-class QuestionFactory: QuestionFactoryProtocol {
+final class QuestionFactory: QuestionFactoryProtocol {
     // MARK: - Public Properties
     
     private weak var delegate: QuestionFactoryDelegate?

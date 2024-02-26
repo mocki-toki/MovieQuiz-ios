@@ -8,7 +8,7 @@
 @testable import MovieQuiz
 import XCTest
 
-class ArrayTests: XCTestCase {
+final class ArrayTests: XCTestCase {
     /// Тест на успешное взятие элемента по индексу
     func testGetValueInRange() throws {
         let array = [1, 1, 2, 3, 5]
